@@ -1,0 +1,96 @@
+<div layout:decorate="layout">
+    <div layout:fragment="contents">
+      <h1 th:text="${hotel.name}">Show Hotel</h1>
+      <div class="row">
+        <div th:object="${hotel}" class="col-lg-5">
+          <div class="card">
+            <img th:src="*{getPhotoUrl()}" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title" th:text="*{name}"></h5>
+            </div>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">所在地：<span th:text="*{prefecture.name}"></span></li>
+              <li class="list-group-item">～このホテルの特徴～<span th:text="*{description}"></span></li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-lg-7">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>名前</th>
+                <th>本文</th>
+                <th>評価</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr th:each="review:${reviews}" th:object="${review}">
+                <td th:text="*{id}"></td>
+                <td th:text="*{name}"></td>
+                <td th:text="*{body}"></td>
+                <td th:text="*{rating}"></td>
+                <td><a class="btn btn-success" th:href="@{/hotels/{hotel_id}/reviews/{id}(hotel_id=*{hotel.id},id=*{id})}">参照</a></td>
+                </td>
+                </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div id="healthDisplay" class="detailSection healthDisplay">
+        <h2 class="detailSectionTitle">新型コロナウイルス感染症対策</h2>
+        <ul class="healthIconList">
+          <li >
+          <span>消毒液の設置</span>
+     　　 </li>
+          <li >
+          <span>除菌清掃</span>
+     　　 </li>
+          <li >
+          <span>換気対応</span>
+     　　 </li>
+          <li >
+          <span>社会的距離の確保</span>
+     　　 </li>
+          <li >
+          <span>スタッフ対策</span>
+     　　 </li>
+          <li >
+          <span>お客様へのお願い</span>
+     　　 </li>
+        </ul>
+        <div class="review_graph js-review-graph">
+          <div class="review_table">
+            <div class="left">
+              <h3 class="title">レビューの総合点</h3>
+              <div class="review_graph_box">
+                <div class="piechart" style="width:160px; height:160px; text-align:center;">
+                  <svg viewBox="0 0 160 160">
+                    <circle cx="80" cy="80" r="68" stroke="#ededed" stroke-width="12" fill="transparent" />
+                    <circle cx="80" cy="80" r="68" class="js-circle-valuation" stroke-width="12" fill="transparent" transform="rotate(-90, 80, 80)" />
+                    <text x="65" y="94" font-size="36px" text-anchor="middle" fill="#0f0a64">4.8</text><text x="101" y="91" font-size="18px" text-anchor="middle" fill="#0f0a64">/</text><text x="113" y="94" font-size="20px" text-anchor="middle" fill="#0f0a64">5</text>            </svg>
+                </div>
+               </div>
+              </div>
+            </div>
+          </div>
+         </div>
+      <ul class="nav nav-pills nav-fill">
+        <li class="nav-item">
+          <a class="nav-link active" th:href="@{/hotels/{hotel_id}/reservations/new(hotel_id=${hotel.id})}">予約する</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" th:href="@{/hotels/{hotel_id}/reviews/new(hotel_id=${hotel.id})}">レビューを投稿する</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" th:href="@{/hotels/{hotel_id}/reviews(hotel_id=${hotel.id})}">レビュー一覧</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/contacts/new">お問い合わせ</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/hotels">一覧画面へ</a>
+        </li>
+      </ul>
+    </div>
+</div>
